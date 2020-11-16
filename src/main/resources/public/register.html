@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
+    <script src="authentication.js" type="application/javascript"></script>
 </head>
 <body>
-
+<form id="registerForm">
+    <h1>Register</h1>
+    <p>Username:</p>
+    <input type="text" name="username" id="username" placeholder="Username">
+    <br><br>
+    <p>Password:</p>
+    <input type="password" name="password" id="password" placeholder="Password">
+    <br><br>
+    <p>Confirm Password:</p>
+    <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password">
+    <br><br>
+    <p id="error"></p>
+    <p>Or <a href="http://localhost:8081/login.html">log in</a></p>
+    <button type="submit">Create</button>
+</form>
 </body>
 </html>
