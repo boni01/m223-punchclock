@@ -5,6 +5,7 @@ import ch.zli.m223.punchclock.repository.EntryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntryService {
@@ -15,10 +16,22 @@ public class EntryService {
     }
 
     public Entry createEntry(Entry entry) {
-        return entryRepository.saveAndFlush(entry);
+        return entryRepository.save(entry);
     }
 
     public List<Entry> findAll() {
         return entryRepository.findAll();
+    }
+
+    public Optional<Entry> findById(long id){
+        return entryRepository.findById(id);
+    }
+
+    public void deleteEntry(long id){
+        entryRepository.deleteById(id);
+    }
+
+    public Entry updateEntry(Entry entry) {
+        return this.entryRepository.saveAndFlush(entry);
     }
 }
