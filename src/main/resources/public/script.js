@@ -1,7 +1,6 @@
 const URL = 'http://localhost:8081';
 let entries = [];
 let categories = [];
-let formdata = null
 
 const dateAndTimeToDate = (dateString, timeString) => {
     return new Date(`${dateString}T${timeString}`).toISOString();
@@ -43,7 +42,10 @@ const deleteEntry = (id) => {
 
 const indexEntries = () => {
     fetch(`${URL}/entries`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        }
     }).then((result) => {
         result.json().then((result) => {
             entries = result;
@@ -83,7 +85,10 @@ const renderEntries = () => {
 
 const indexCategories = () => {
     fetch(`${URL}/categories`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': localStorage.getItem('token')
+        }
     }).then((result) => {
         result.json().then((result) => {
             categories = result;

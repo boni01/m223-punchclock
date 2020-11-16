@@ -38,7 +38,7 @@ public class EntryController {
     }
 
     @PutMapping("/{id}")
-    public Entry updatEntry(@PathVariable long id, @Valid @RequestBody Entry newEntry){
+    public Entry updateEntry(@PathVariable long id, @Valid @RequestBody Entry newEntry){
         return entryService.findById(id).map(entry1 -> {
             entry1.setCheckIn(newEntry.getCheckIn());
             entry1.setCheckOut(newEntry.getCheckOut());

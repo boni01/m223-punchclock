@@ -16,13 +16,13 @@ const login = (e) => {
         body: JSON.stringify(user)
     }).then((result) => {
         if(result.status === 403){
-            document.getElementById("error").innerHTML = "Access Denied";
+            document.getElementById("error").innerHTML = "User does not Exist";
             document.getElementById("error").style.color = "red";
         }
         else if(result.status === 200) {
             localStorage.setItem('token', result.headers.get('Authorization'));
             localStorage.setItem('username', user['username']);
-            window.location.href = 'http://localhost:8081/index.html';
+            window.location.href = `${URL}`;
         }
 
     });
@@ -72,8 +72,6 @@ const register = (e) => {
     });
 };
 
-
-
 document.addEventListener('DOMContentLoaded', function(){
     const registerForm = document.querySelector('#registerForm');
     if(registerForm) {
@@ -85,5 +83,23 @@ document.addEventListener('DOMContentLoaded', function(){
     const loginForm = document.querySelector('#loginForm');
     if (loginForm){
         loginForm.addEventListener('submit', login);
+    }
+});
+
+self.addEventListener("fetch", (event) => {
+    let currentUrl = new URL(event.request.url);
+    if (currentUrl.origin === location.origin){
+        var newRequest = new Request(event.request, {
+            mode: "cors",
+            credentials: "same-origin",
+            headers: {
+                'Authorization': window.localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            }
+        });
+        event.respondWith(fetch(newRequest));
+    }
+    else {
+        event.respondWith(fetch(event.request));
     }
 });
